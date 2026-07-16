@@ -1,0 +1,39 @@
+.app-root {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.app-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse at 20% 10%, rgba(192, 21, 42, 0.25) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 90%, rgba(139, 0, 0, 0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(60, 0, 10, 0.5) 0%, transparent 80%),
+    linear-gradient(160deg, #1a0005 0%, #0d0003 40%, #2a0008 70%, #1a0005 100%);
+  animation: bgShift 15s ease-in-out infinite;
+}
+
+@keyframes bgShift {
+  0%, 100% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+}
+
+.app-main {
+  position: relative;
+  z-index: 1;
+}
+
+.app-footer {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 24px 20px;
+  font-size: 0.8rem;
+  color: rgba(255, 180, 190, 0.4);
+  letter-spacing: 1px;
+  border-top: 1px solid rgba(255, 107, 129, 0.08);
+}

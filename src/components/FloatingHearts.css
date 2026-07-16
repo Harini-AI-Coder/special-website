@@ -1,0 +1,37 @@
+.hearts-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(110vh) translateX(0px) scale(0.5) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(40vh) translateX(var(--sway)) scale(1.1) rotate(15deg);
+    opacity: 0.9;
+  }
+  90% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-15vh) translateX(calc(var(--sway) * 1.5)) scale(0.7) rotate(-10deg);
+    opacity: 0;
+  }
+}
+
+.floating-heart {
+  position: absolute;
+  bottom: -60px;
+  animation: floatUp linear infinite;
+  will-change: transform, opacity;
+  user-select: none;
+  filter: drop-shadow(0 0 6px rgba(255, 100, 120, 0.6));
+}
