@@ -15,10 +15,10 @@ const HeroSection = () => {
       <div className="hero-bg-glow hero-glow-2" />
       <div className="hero-bg-glow hero-glow-3" />
 
-      {/* Decorative petals */}
-      <div className="petal-ring" aria-hidden="true">
+      {/* Decorative butterflies */}
+      <div className="butterfly-ring" aria-hidden="true">
         {Array.from({ length: 8 }, (_, i) => (
-          <span key={i} className="petal" style={{ '--petal-i': i }}>🌸</span>
+          <span key={i} className="butterfly" style={{ '--bf-i': i }}>🦋</span>
         ))}
       </div>
 
@@ -32,9 +32,8 @@ const HeroSection = () => {
         <div className="hero-main-emoji">🎂</div>
 
         <h1 className="hero-heading">
-          <span className="hero-heading-line1">Happy</span>
-          <span className="hero-heading-line2">Birthday</span>
-          <span className="hero-heading-line3">My Love 💖</span>
+          <span className="hero-heading-line1">Happy Birthday</span>
+          <span className="hero-heading-line2">Jeev 💚</span>
         </h1>
 
         <div className="hero-divider">

@@ -20,9 +20,9 @@ const Header = () => {
   return (
     <header className="site-header">
       <div className="header-brand">
-        <span className="header-heart">💖</span>
-        <span className="header-title">Happy Birthday</span>
-        <span className="header-heart">💖</span>
+        <span className="header-heart">💚</span>
+        <span className="header-title">Happy Birthday Jeev</span>
+        <span className="header-heart">💚</span>
       </div>
 
       <div className="avatar-wrapper" onClick={handleAvatarClick} title="Click to upload your photo">
