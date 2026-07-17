@@ -1,9 +1,10 @@
 import React, { useState, useRef } from 'react';
 import './LoveLetter.css';
+import letterAvatar from '../assets/letter_avatar.png';
 
 const LoveLetter = ({ onBack }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [avatarSrc, setAvatarSrc] = useState(null);
+  const [avatarSrc, setAvatarSrc] = useState(letterAvatar);
   const avatarInputRef = useRef(null);
 
   const handleAvatarClick = () => {
@@ -44,10 +45,10 @@ const LoveLetter = ({ onBack }) => {
                 <span className="seal-heart">❤</span>
                 <span className="seal-label">Open Me</span>
               </button>
-            </div>
 
-            {/* "Dear Jeev," text below the envelope */}
-            <p className="env-hint-text">Dear Jeev,</p>
+              {/* "Dear Jeev," text inside the envelope below the button */}
+              <p className="env-hint-text">Dear Jeev,</p>
+            </div>
           </div>
         </div>
       )}

@@ -9,6 +9,7 @@ import './App.css';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('main');
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   return (
     <div className="app-root">
@@ -23,7 +24,13 @@ function App() {
           <Header />
           <main className="app-main">
             <HeroSection />
-            <LoveQuestion onSeeMiracle={() => setCurrentPage('letter')} />
+            <LoveQuestion 
+              onSeeMiracle={() => {
+                setIsPopupOpen(false);
+                setCurrentPage('letter');
+              }}
+              onPopupToggle={setIsPopupOpen}
+            />
           </main>
         </>
       ) : (
@@ -32,7 +39,7 @@ function App() {
         </main>
       )}
 
-      {currentPage !== 'main' && (
+      {!isPopupOpen && currentPage === 'main' && (
         <footer className="app-footer">
           <p>Made with ❤️ just for you &nbsp;·&nbsp; 2026</p>
         </footer>

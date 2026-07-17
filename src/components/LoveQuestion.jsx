@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import './LoveQuestion.css';
 import coupleAvatar from '../assets/couple.jpg';
 
-const LoveQuestion = ({ onSeeMiracle }) => {
+const LoveQuestion = ({ onSeeMiracle, onPopupToggle }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [noPos, setNoPos] = useState({ x: 0, y: 0 });
   const [noCount, setNoCount] = useState(0);
@@ -10,6 +10,12 @@ const LoveQuestion = ({ onSeeMiracle }) => {
   const containerRef = useRef(null);
   const noButtonRef = useRef(null);
   const popupFileInputRef = useRef(null);
+
+  useEffect(() => {
+    if (onPopupToggle) {
+      onPopupToggle(showPopup);
+    }
+  }, [showPopup, onPopupToggle]);
 
   const escapeNoButton = () => {
     const container = containerRef.current;

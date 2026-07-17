@@ -160,13 +160,18 @@
   letter-spacing: 0.9px;
 }
 
-/* "Dear Jeev," hint below envelope */
+/* "Dear Jeev," hint inside envelope */
 .env-hint-text {
+  position: absolute;
+  top: calc(50% + 75px);
+  left: 0;
+  right: 0;
   font-family: 'Great Vibes', cursive;
   font-size: 2rem;
-  color: rgba(255, 200, 210, 0.75);
+  color: rgba(7, 7, 7, 0.75);
   text-align: center;
   pointer-events: none;
+  z-index: 5;
 }
 
 /* ═══════════════════════════════════════════
@@ -261,7 +266,7 @@
   position: absolute;
   top: -44px;
   /* overflow above the letter top edge */
-  right: -50px;
+  right: -40px;
   /* overflow to the right edge */
   width: 170px;
   height: 170px;
@@ -476,6 +481,7 @@
 
   .env-hint-text {
     font-size: 1.6rem;
+    top: calc(50% + 55px);
   }
 
   .letter-page {
