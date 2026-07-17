@@ -7,10 +7,8 @@ const VoicePage = ({ onBack }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [audioUrl, setAudioUrl] = useState('');
   
   const audioRef = useRef(null);
-  const fileInputRef = useRef(null);
   const heartsContainerRef = useRef(null);
 
   // Auto-spawn hearts when playing
@@ -85,23 +83,59 @@ const VoicePage = ({ onBack }) => {
     }
   };
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const url = URL.createObjectURL(file);
-      setAudioUrl(url);
-      setIsPlaying(false);
-      setCurrentTime(0);
+
+  const handleSayThanks = () => {
+    const container = heartsContainerRef.current;
+    if (!container) return;
+
+    // Spawn 35 butterflies for a rich full-page effect
+    for (let i = 0; i < 35; i++) {
+      const wrapper = document.createElement('span');
+      wrapper.className = 'voice-butterfly-wrapper';
       
-      // Load and autoplay new file
+      const wings = document.createElement('span');
+      wings.className = 'voice-butterfly-wings';
+      wings.textContent = '🦋';
+      wrapper.appendChild(wings);
+      
+      const size = 1.2 + Math.random() * 1.6;
+      const isGreen = Math.random() > 0.5;
+      
+      // Spawn at random points along the bottom edge of the entire screen
+      const startX = Math.random() * 100;
+      
+      // Flight movement: drift slightly sideways and fly past the top of the screen
+      const dx = (Math.random() - 0.5) * 180;
+      const dy = -(window.innerHeight + 150);
+      const rotation = (Math.random() - 0.5) * 90;
+      const delay = Math.random() * 1.8; // spread out over time for a wave effect
+      const duration = 4.5 + Math.random() * 3.5; // flutter at natural, varying speeds
+      
+      wrapper.style.cssText = `
+        position: absolute;
+        left: ${startX}%;
+        bottom: -60px;
+        font-size: ${size}rem;
+        z-index: 1000;
+        animation: voiceFlyAround ${duration}s ease-in-out ${delay}s forwards;
+        --dx: ${dx}px;
+        --dy: ${dy}px;
+        --rot: ${rotation}deg;
+        filter: ${isGreen ? 'hue-rotate(90deg) saturate(1.8) drop-shadow(0 2px 8px rgba(0,255,128,0.5))' : 'hue-rotate(-15deg) saturate(1.8) drop-shadow(0 2px 8px rgba(0,128,255,0.5))'};
+      `;
+      
+      wings.style.cssText = `
+        display: inline-block;
+        transform-origin: center center;
+        animation: voiceWingFlap 0.12s linear infinite alternate;
+      `;
+      
+      container.appendChild(wrapper);
+      
+      // Clean up after animation finishes
       setTimeout(() => {
-        if (audioRef.current) {
-          audioRef.current.load();
-          audioRef.current.play().then(() => {
-            setIsPlaying(true);
-          });
-        }
-      }, 100);
+        wrapper.remove();
+      }, (duration + delay) * 1000 + 500);
     }
   };
 
@@ -120,7 +154,7 @@ const VoicePage = ({ onBack }) => {
         Back to Booklet 📖
       </button>
 
-      {/* Floating hearts layer for full page animation */}
+      {/* Floating hearts & butterflies layer for full page animation */}
       <div className="voice-hearts-layer" ref={heartsContainerRef} />
 
       <div className="voice-container animate-fade-in">
@@ -166,22 +200,16 @@ const VoicePage = ({ onBack }) => {
             </button>
           </div>
 
-          {/* Upload voice message button */}
-          <div className="player-upload-section">
+          {/* Say Thanks section */}
+          <div className="player-thanks-section">
             <button 
-              className="btn-upload-voice"
-              onClick={() => fileInputRef.current.click()}
+              className="btn-say-thanks"
+              id="say-thanks-btn"
+              onClick={handleSayThanks}
             >
-              Upload Voice Message 🎙️
+              Say Thanks 💖
             </button>
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="audio/*"
-              style={{ display: 'none' }}
-              onChange={handleFileChange}
-            />
-            <p className="upload-hint">Upload your voice note to play it here!</p>
+            <p className="thanks-hint">Give a review to your wifi for the efforts! 💕</p>
           </div>
 
         </div>
@@ -190,7 +218,7 @@ const VoicePage = ({ onBack }) => {
       {/* Hidden audio player */}
       <audio
         ref={audioRef}
-        src={audioUrl || voiceMessage}
+        src={voiceMessage}
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={handleLoadedMetadata}
         onEnded={handleAudioEnded}
