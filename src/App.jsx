@@ -5,6 +5,7 @@ import LoveQuestion from './components/LoveQuestion';
 import LoveLetter from './components/LoveLetter';
 import AnniversaryPage from './components/AnniversaryPage';
 import JourneyBooklet from './components/JourneyBooklet';
+import VoicePage from './components/VoicePage';
 import FloatingHearts from './components/FloatingHearts';
 import Sparkles from './components/Sparkles';
 import './App.css';
@@ -15,6 +16,7 @@ const PAGE_TITLES = {
   letter:      'Happy Birthday Jeev',
   anniversary: 'Happy 2nd Love Anniversary 💚',
   journey:     'Our Love Journey 💚💙',
+  voice:       'A Message For You 🎙️',
 };
 
 function App() {
@@ -69,7 +71,16 @@ function App() {
 
       {currentPage === 'journey' && (
         <main className="app-main animate-fade-in">
-          <JourneyBooklet onBack={() => navigate('anniversary')} />
+          <JourneyBooklet
+            onBack={() => navigate('anniversary')}
+            onNext={() => navigate('voice')}
+          />
+        </main>
+      )}
+
+      {currentPage === 'voice' && (
+        <main className="app-main animate-fade-in">
+          <VoicePage onBack={() => navigate('journey')} />
         </main>
       )}
 
@@ -84,3 +95,4 @@ function App() {
 }
 
 export default App;
+

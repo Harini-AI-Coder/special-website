@@ -58,10 +58,16 @@ const CHAPTERS = [
   },
 ];
 
-const JourneyBooklet = ({ onBack }) => {
+const JourneyBooklet = ({ onBack, onNext }) => {
   const [activeChapter, setActiveChapter] = useState(0);
 
-  const goNext = () => setActiveChapter(c => Math.min(c + 1, CHAPTERS.length - 1));
+  const goNext = () => {
+    if (activeChapter === CHAPTERS.length - 1) {
+      if (onNext) onNext();
+    } else {
+      setActiveChapter(c => c + 1);
+    }
+  };
   const goPrev = () => setActiveChapter(c => Math.max(c - 1, 0));
 
   const chapter = CHAPTERS[activeChapter];
@@ -156,7 +162,6 @@ const JourneyBooklet = ({ onBack }) => {
           className="booklet-nav-arrow arrow-right"
           id="booklet-arrow-next"
           onClick={goNext}
-          disabled={activeChapter === CHAPTERS.length - 1}
           aria-label="Next Page"
         >
           <span>💘</span>
