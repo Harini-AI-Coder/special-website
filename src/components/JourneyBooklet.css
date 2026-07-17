@@ -21,28 +21,35 @@
   padding: 0 45px;
 }
 
-/* Floating Navigation Arrows (Just Arrows, No Circle Background) */
+/* Floating Navigation Arrows (Small Circular pink/red design) */
 .booklet-nav-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: transparent;
-  border: none;
-  color: rgba(255, 255, 255, 0.35);
-  font-size: clamp(2.5rem, 8vw, 3.8rem);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 107, 129, 0.45);
+  background: rgba(26, 0, 5, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #fff;
+  font-size: 1.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   z-index: 100;
-  transition: all 0.3s ease;
-  padding: 10px;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  padding: 0;
 }
 
 .booklet-nav-arrow:hover:not(:disabled) {
-  color: #FFD700;
-  text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
-  transform: translateY(-50%) scale(1.2);
+  background: #ff4d6d; /* Premium pink/red */
+  border-color: #ff85a2;
+  transform: translateY(-50%) scale(1.15);
+  box-shadow: 0 10px 24px rgba(255, 77, 109, 0.55);
 }
 
 .booklet-nav-arrow:active:not(:disabled) {
@@ -52,6 +59,12 @@
 .booklet-nav-arrow:disabled {
   opacity: 0;
   pointer-events: none;
+}
+
+/* Horizontal flip for left heart-with-arrow emoji to point left */
+.arrow-icon-flip {
+  display: inline-block;
+  transform: scaleX(-1);
 }
 
 .arrow-left {

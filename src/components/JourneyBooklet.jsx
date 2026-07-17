@@ -81,7 +81,7 @@ const JourneyBooklet = ({ onBack }) => {
           disabled={activeChapter === 0}
           aria-label="Previous Page"
         >
-          <span>◀</span>
+          <span className="arrow-icon-flip">💘</span>
         </button>
 
         {/* Booklet Card (key resets CSS animation on page change) */}
@@ -149,7 +149,7 @@ const JourneyBooklet = ({ onBack }) => {
           disabled={activeChapter === CHAPTERS.length - 1}
           aria-label="Next Page"
         >
-          <span>▶</span>
+          <span>💘</span>
         </button>
       </div>
 
