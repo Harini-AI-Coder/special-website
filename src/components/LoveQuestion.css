@@ -409,11 +409,9 @@
 }
 
 .jh-text {
-  font-family: math;
-  font-weight: 800;
-  font-size: 2.4rem;
+  font-family: 'Great Vibes', cursive;
+  font-size: 3rem;
   color: #fff;
-  letter-spacing: 2px;
   line-height: 1;
 }
 

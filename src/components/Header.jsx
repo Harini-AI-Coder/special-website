@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import './Header.css';
 import defaultAvatar from '../assets/avatar.jpg';
 
-const Header = () => {
+const Header = ({ title = 'Happy Birthday Jeev' }) => {
   const fileInputRef = useRef(null);
   const [avatarSrc, setAvatarSrc] = useState(defaultAvatar);
 
@@ -22,7 +22,7 @@ const Header = () => {
     <header className="site-header">
       <div className="header-brand">
         <span className="header-heart">💚</span>
-        <span className="header-title">Happy Birthday Jeev</span>
+        <span className="header-title">{title}</span>
         <span className="header-heart">💚</span>
       </div>
 

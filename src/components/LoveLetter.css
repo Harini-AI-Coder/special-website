@@ -11,31 +11,6 @@
   overflow: hidden;
 }
 
-/* Return button */
-.btn-back-vintage {
-  position: fixed;
-  top: 24px;
-  left: 24px;
-  padding: 10px 24px;
-  border: none;
-  background: rgb(245 53 53 / 44%);
-  color: #FFD700;
-  font-family: 'Poppins', sans-serif;
-  font-size: 0.88rem;
-  border-radius: 30px;
-  cursor: pointer;
-  backdrop-filter: blur(14px);
-  transition: all 0.3s ease;
-  z-index: 9999;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
-}
-
-.btn-back-vintage:hover {
-  background: #FFD700;
-  color: #1a0005;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 22px rgba(255, 215, 0, 0.45);
-}
 
 /* ═══════════════════════════════════════════
    ENVELOPE SCENE (closed state)
@@ -192,6 +167,7 @@
   overflow-y: auto;
 }
 
+
 /* White letter paper */
 .letter-page {
   position: relative;
@@ -209,7 +185,30 @@
     0 32px 90px rgba(0, 0, 0, 0.65),
     0 4px 20px rgba(0, 0, 0, 0.25);
   animation: letterOpen 0.55s cubic-bezier(0.34, 1.2, 0.64, 1);
+  isolation: isolate;
 }
+
+/* Background image applied directly on the letter paper at low opacity */
+.letter-page::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--letter-bg);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  opacity: 0.13;
+  border-radius: inherit;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Keep all content above the bg image */
+.letter-page > * {
+  position: relative;
+  z-index: 1;
+}
+
 
 @keyframes letterOpen {
   from {
@@ -401,10 +400,10 @@
 
 .letter-signature {
   font-family: 'Great Vibes', cursive;
-  font-size: 2.4rem;
+  font-size: 2rem;
   color: #8B0000;
   line-height: 1.2;
-  margin-top: -4px;
+  margin-top: 7px;
 }
 
 /* Close button */
@@ -428,6 +427,28 @@
 .btn-close-letter:hover {
   transform: translateY(-2px) scale(1.04);
   box-shadow: 0 10px 28px rgba(192, 21, 42, 0.55);
+}
+
+/* "Click Me" variant — more celebratory */
+.btn-click-me {
+  background: linear-gradient(135deg, #e63950, #c0152a, #8b0000);
+  padding: 14px 48px;
+  font-size: 1rem;
+  box-shadow:
+    0 8px 28px rgba(192, 21, 42, 0.55),
+    0 0 0 0 rgba(255, 107, 129, 0);
+  animation: clickMePulse 2.5s ease-in-out infinite;
+}
+
+@keyframes clickMePulse {
+  0%, 100% { box-shadow: 0 8px 28px rgba(192, 21, 42, 0.55), 0 0 0 0 rgba(255, 107, 129, 0.4); }
+  50%       { box-shadow: 0 8px 28px rgba(192, 21, 42, 0.55), 0 0 0 10px rgba(255, 107, 129, 0); }
+}
+
+.btn-click-me:hover {
+  transform: translateY(-3px) scale(1.06);
+  box-shadow: 0 16px 40px rgba(192, 21, 42, 0.65);
+  animation: none;
 }
 
 /* Scrollbar */

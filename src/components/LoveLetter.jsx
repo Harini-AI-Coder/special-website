@@ -1,8 +1,9 @@
 import React, { useState, useRef } from 'react';
 import './LoveLetter.css';
-import letterAvatar from '../assets/letter_avatar.png';
+import letterAvatar from '../assets/letter_avatar.jpeg';
+import letterBg from '../assets/letter_bg.jpg';
 
-const LoveLetter = ({ onBack }) => {
+const LoveLetter = ({ onBack, onClickMe }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [avatarSrc, setAvatarSrc] = useState(letterAvatar);
   const avatarInputRef = useRef(null);
@@ -20,7 +21,7 @@ const LoveLetter = ({ onBack }) => {
     <section className="letter-section">
 
       {/* ── RETURN BUTTON ── */}
-      <button className="btn-back-vintage" onClick={onBack}>✦ Return</button>
+      <button className="btn-back-vintage" onClick={onBack}>Back to Home 💖</button>
 
       {/* ════════════════════════════════
           CLOSED STATE — Envelope
@@ -58,17 +59,20 @@ const LoveLetter = ({ onBack }) => {
       ════════════════════════════════ */}
       {isOpen && (
         <div className="letter-overlay animate-fade-in">
-          <div className="letter-page">
+          <div
+            className="letter-page"
+            style={{ '--letter-bg': `url(${letterBg})` }}
+          >
 
             {/* ── TOP SECTION: address + photo circle ── */}
             <div className="letter-top-row">
 
               {/* Left: sender address block */}
               <div className="sender-block">
-                <p className="sender-name">Harini</p>
-                <p className="sender-addr">Heart Lane, Love Street</p>
-                <p className="sender-addr">Chennai, India</p>
-                <p className="sender-date">July 17, 2026</p>
+                <p className="sender-name">RiniKutty</p>
+                <p className="sender-addr">Jeeva Heart, His Aalagi</p>
+                <p className="sender-addr">Dindigul, TamilNadu</p>
+                <p className="sender-date">July 18, 2026</p>
               </div>
 
               {/* Right: big red photo circle (overflows top-right) */}
@@ -104,31 +108,28 @@ const LoveLetter = ({ onBack }) => {
             {/* ── Recipient line ── */}
             <div className="recipient-block">
               <p className="recipient-name">Jeev,</p>
-              <p className="recipient-addr">Your Heart, My World</p>
+              <p className="recipient-addr">Yen Kannukutty, My Thangooo</p>
             </div>
 
             {/* ── Greeting ── */}
-            <h2 className="letter-greeting">My dearest Jeev,</h2>
+            <h2 className="letter-greeting">My dear Jeev,</h2>
 
             {/* ── Body ── */}
             <div className="letter-body-text">
               <p>
-                I wanted to take a moment to express the depth of my love for you. You have brought so much
-                joy and happiness into my life, and I am grateful daily for your presence.
+                I wanted to take a moment to express the depth of my love for you. Una yenaku Rmba Pudikum Thangooo Epodhum Una Vitu Kuduka Maten. Yen Jeev Many More Happy Returns Of the day da Aalaga.
               </p>
               <p>
-                From the moment I first met you, I knew there was something special about you. Your beautiful
-                smile, your infectious laughter, and your kind heart captured my attention and my heart. Since
-                then, my feelings for you have only grown stronger.
+                Una Partha apo theriyala Ne dhan yen uyir ah irupa yen ulagama irupa nu che, nala friend ah palagunen neyum unkuda spend pana time yellamea avalo valuable as a friend and as a lover ah waiting che as a wifi ah life long travel pannaum,
+                Love U Rmba Che Una yosikama love panen aana crt ah dhan love paniruken ne rmba nala payan thangooo.Yen Chellam
               </p>
               <p>
-                I love the way you look at me with your sparkling eyes and the way your laughter fills a room
-                with joy. I love the sound of your voice and how you make me feel when you wrap your arms
-                around me. I love the little things you do that show me how much you care.
+                Sorry For Everything we passed che. Missing you Muu unkudaye irukanum pola iruku che sekarama vandhu katiko papa waiting. unaku puducha mathiri irukua epome try panuren panite irupen panuven. papa va parthuko na una nala pathukuren valkaya rasichu unayum rasichu un kuda valanum rmba years salikadha kadhal oda.
+                ne yena vida yena love panura nu nala purunjukitten ne ilama yenala iruka mudiyadhu adhedhan unakum papa va parthuko una vidamaten thangooo ne dhan venum ne matum dhan venum.
               </p>
               <p>
-                My love for you is endless and unconditional. I will always be by your side through thick and
-                thin, and I promise to love you with every fiber of my being for eternity.
+                My love for you is endless and unconditional. Yen Thangamea, Yen alaga, Yen Kanukutty Love u rmba chellamea. Unakaga na epome iruken che I promise my life and love is only for you my man. my world.
+                Unoda karam pidithu valkai thodanga kathirukiren ipadiku un pondatiii...
               </p>
             </div>
 
@@ -138,9 +139,16 @@ const LoveLetter = ({ onBack }) => {
               <p className="letter-signature">Harini 💚💙</p>
             </div>
 
-            {/* ── Close button ── */}
-            <button className="btn-close-letter" onClick={() => setIsOpen(false)}>
-              Close Letter
+            {/* ── Click Me button — navigates to Anniversary page ── */}
+            <button
+              className="btn-close-letter btn-click-me"
+              id="click-me-btn"
+              onClick={() => {
+                setIsOpen(false);
+                if (onClickMe) onClickMe();
+              }}
+            >
+              Click Me 💌
             </button>
 
           </div>

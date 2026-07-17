@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './FloatingHearts.css';
 
-const HEART_SHAPES = ['❤️', '💕', '💗', '💖', '💝', '🌹'];
+const HEART_SHAPES = ['❤️', '💕', '💗', '💖', '💝'];
 
 const generateHeart = (id) => ({
   id,
