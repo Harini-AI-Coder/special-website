@@ -1,12 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './LoveQuestion.css';
 
-const LoveQuestion = () => {
+const LoveQuestion = ({ onSeeMiracle }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [noPos, setNoPos] = useState({ x: 0, y: 0 });
   const [noCount, setNoCount] = useState(0);
+  const [popupAvatarSrc, setPopupAvatarSrc] = useState(null);
   const containerRef = useRef(null);
   const noButtonRef = useRef(null);
+  const popupFileInputRef = useRef(null);
 
   const escapeNoButton = () => {
     const container = containerRef.current;
@@ -34,6 +36,18 @@ const LoveQuestion = () => {
 
     setNoPos({ x: newX, y: newY });
     setNoCount(c => c + 1);
+  };
+
+  const handlePopupAvatarClick = () => {
+    popupFileInputRef.current.click();
+  };
+
+  const handlePopupFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setPopupAvatarSrc(url);
+    }
   };
 
   const getNoText = () => {
@@ -84,19 +98,50 @@ const LoveQuestion = () => {
                 <span key={i} className="burst-heart" style={{ '--i': i }}>❤️</span>
               ))}
             </div>
-            <div className="popup-emoji-big">💑</div>
+
+            <div className="popup-avatar-wrapper" onClick={handlePopupAvatarClick} title="Click to upload couple photo">
+              <div className="popup-avatar-ring">
+                <div className="popup-avatar-inner">
+                  {popupAvatarSrc ? (
+                    <img src={popupAvatarSrc} alt="Love Avatar" className="popup-avatar-img" />
+                  ) : (
+                    <div className="popup-avatar-placeholder">
+                      <span className="popup-avatar-icon">📸</span>
+                      <span className="popup-avatar-hint">Upload Photo</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="popup-avatar-glow" />
+            </div>
+            <input
+              ref={popupFileInputRef}
+              type="file"
+              accept="image/*"
+              style={{ display: 'none' }}
+              onChange={handlePopupFileChange}
+              id="popup-avatar-upload"
+            />
+
             <h2 className="popup-title">Yes, I Love You Too! 💖</h2>
             <p className="popup-message">
               You are my sunshine, my reason to smile every single day. 
               Happy Birthday, my love! 🎂✨
             </p>
-            <div className="popup-rose">🌹🌹🌹</div>
+            <div className="popup-jh-container">
+              <span className="jh-heart green-heart">💚</span>
+              <span className="jh-text">JH</span>
+              <span className="jh-heart blue-heart">💙</span>
+            </div>
             <button
               className="popup-close-btn"
               id="popup-close"
-              onClick={() => setShowPopup(false)}
+              onClick={() => {
+                setShowPopup(false);
+                if (onSeeMiracle) onSeeMiracle();
+              }}
             >
-              💝 Forever Yours
+              See Miracle
             </button>
           </div>
         </div>
