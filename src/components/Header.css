@@ -66,7 +66,6 @@
   border-radius: 50%;
   background: conic-gradient(#ff6b81, #c0152a, #8b0000, #e63950, #ff6b81);
   padding: 3px;
-  animation: spinRing 4s linear infinite;
   z-index: 1;
 }
 

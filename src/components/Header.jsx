@@ -1,9 +1,10 @@
 import React, { useRef, useState } from 'react';
 import './Header.css';
+import defaultAvatar from '../assets/avatar.jpg';
 
 const Header = () => {
   const fileInputRef = useRef(null);
-  const [avatarSrc, setAvatarSrc] = useState(null);
+  const [avatarSrc, setAvatarSrc] = useState(defaultAvatar);
 
   const handleAvatarClick = () => {
     fileInputRef.current.click();
