@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - harini-coder/branch/edit-letter
 
 permissions:
   contents: read
