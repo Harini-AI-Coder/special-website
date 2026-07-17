@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './JourneyBooklet.css';
-import letterAvatar from '../assets/letter_avatar.png';
+import letterAvatar from '../assets/letter_avatar.jpeg';
 import coupleAvatar from '../assets/couple.jpg';
 
 const CHAPTERS = [
@@ -81,7 +81,7 @@ const JourneyBooklet = ({ onBack }) => {
             <p className="booklet-chapter-num">Chapter {chapter.id}</p>
             <p className="booklet-chapter-date">{chapter.date}</p>
             <div className="booklet-left-deco">
-              {['💕','💞','💕'].map((h, i) => (
+              {['💕', '💞', '💕'].map((h, i) => (
                 <span key={i} className="booklet-deco-heart" style={{ animationDelay: `${i * 0.4}s` }}>{h}</span>
               ))}
             </div>

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import './LoveLetter.css';
-import letterAvatar from '../assets/letter_avatar.png';
+import letterAvatar from '../assets/letter_avatar.jpeg';
 import letterBg from '../assets/letter_bg.jpg';
 
 const LoveLetter = ({ onBack, onClickMe }) => {
