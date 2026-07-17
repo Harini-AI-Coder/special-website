@@ -7,7 +7,7 @@ const VoicePage = ({ onBack }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  
+
   const audioRef = useRef(null);
   const heartsContainerRef = useRef(null);
 
@@ -22,17 +22,17 @@ const VoicePage = ({ onBack }) => {
       const heart = document.createElement('span');
       heart.className = 'player-floating-heart';
       heart.textContent = ['❤️', '💖', '💕', '💙', '💚'][Math.floor(Math.random() * 5)];
-      
+
       const size = 1 + Math.random() * 1.8;
       const startX = 20 + Math.random() * 60; // Spawn near the player center
       const duration = 2 + Math.random() * 3;
-      
+
       heart.style.cssText = `
         left: ${startX}%;
         font-size: ${size}rem;
         animation-duration: ${duration}s;
       `;
-      
+
       container.appendChild(heart);
       setTimeout(() => heart.remove(), duration * 1000);
     };
@@ -92,25 +92,25 @@ const VoicePage = ({ onBack }) => {
     for (let i = 0; i < 35; i++) {
       const wrapper = document.createElement('span');
       wrapper.className = 'voice-butterfly-wrapper';
-      
+
       const wings = document.createElement('span');
       wings.className = 'voice-butterfly-wings';
       wings.textContent = '🦋';
       wrapper.appendChild(wings);
-      
+
       const size = 1.2 + Math.random() * 1.6;
       const isGreen = Math.random() > 0.5;
-      
+
       // Spawn at random points along the bottom edge of the entire screen
       const startX = Math.random() * 100;
-      
+
       // Flight movement: drift slightly sideways and fly past the top of the screen
       const dx = (Math.random() - 0.5) * 180;
       const dy = -(window.innerHeight + 150);
       const rotation = (Math.random() - 0.5) * 90;
       const delay = Math.random() * 1.8; // spread out over time for a wave effect
       const duration = 4.5 + Math.random() * 3.5; // flutter at natural, varying speeds
-      
+
       wrapper.style.cssText = `
         position: absolute;
         left: ${startX}%;
@@ -123,15 +123,15 @@ const VoicePage = ({ onBack }) => {
         --rot: ${rotation}deg;
         filter: ${isGreen ? 'hue-rotate(90deg) saturate(1.8) drop-shadow(0 2px 8px rgba(0,255,128,0.5))' : 'hue-rotate(-15deg) saturate(1.8) drop-shadow(0 2px 8px rgba(0,128,255,0.5))'};
       `;
-      
+
       wings.style.cssText = `
         display: inline-block;
         transform-origin: center center;
         animation: voiceWingFlap 0.12s linear infinite alternate;
       `;
-      
+
       container.appendChild(wrapper);
-      
+
       // Clean up after animation finishes
       setTimeout(() => {
         wrapper.remove();
@@ -148,7 +148,7 @@ const VoicePage = ({ onBack }) => {
 
   return (
     <section className="voice-section">
-      
+
       {/* Return button */}
       <button className="btn-back-vintage" onClick={onBack}>
         Back to Booklet 📖
@@ -163,7 +163,7 @@ const VoicePage = ({ onBack }) => {
 
         {/* Audio Player Wrapper */}
         <div className="player-card">
-          
+
           {/* Vinyl CD Player Animation */}
           <div className={`cd-disc-wrap ${isPlaying ? 'playing' : ''}`}>
             <div className="cd-disc">
@@ -191,7 +191,7 @@ const VoicePage = ({ onBack }) => {
 
           {/* Player controls */}
           <div className="player-controls">
-            <button 
+            <button
               className={`play-btn ${isPlaying ? 'paused' : ''}`}
               onClick={handlePlayPause}
               aria-label={isPlaying ? 'Pause' : 'Play'}
@@ -202,12 +202,12 @@ const VoicePage = ({ onBack }) => {
 
           {/* Say Thanks section */}
           <div className="player-thanks-section">
-            <button 
+            <button
               className="btn-say-thanks"
               id="say-thanks-btn"
               onClick={handleSayThanks}
             >
-              Say Thanks 💖
+              Send Love💖
             </button>
             <p className="thanks-hint">Give a review to your wifi for the efforts! 💕</p>
           </div>
