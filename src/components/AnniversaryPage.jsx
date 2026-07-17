@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import './AnniversaryPage.css';
 
-const HEARTS = ['❤️', '💚', '💙', '💕', '💖', '💗', '💝', '🌹'];
+const HEARTS = ['❤️', '💚', '💙', '💕', '💖', '💗', '💝'];
 
 const AnniversaryPage = ({ onExploreMore }) => {
   const containerRef = useRef(null);
@@ -40,19 +40,6 @@ const AnniversaryPage = ({ onExploreMore }) => {
       {/* Central content */}
       <div className="anv-content animate-fade-in">
 
-        {/* Burst ring */}
-        <div className="anv-burst-ring" aria-hidden="true">
-          {Array.from({ length: 16 }, (_, i) => (
-            <span
-              key={i}
-              className="anv-burst-heart"
-              style={{ '--i': i, '--total': 16 }}
-            >
-              {HEARTS[i % HEARTS.length]}
-            </span>
-          ))}
-        </div>
-
         <h1 className="anv-title">
           <span className="anv-title-line1">Happy</span>
           <span className="anv-title-line2">2<sup>nd</sup> Love</span>
@@ -62,7 +49,7 @@ const AnniversaryPage = ({ onExploreMore }) => {
 
         <p className="anv-wish">
           Two years of laughing, growing, and loving — every moment with you is
-          a treasure I hold close to my heart. Here's to forever, my love. 🌹
+          a treasure I hold close to my heart. Here's to forever, my love. 💚
         </p>
 
         <div className="anv-jh">

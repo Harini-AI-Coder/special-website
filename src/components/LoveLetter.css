@@ -192,24 +192,6 @@
   overflow-y: auto;
 }
 
-/* Full-cover background photo — low opacity behind the letter paper */
-.letter-overlay-bg {
-  position: fixed;
-  inset: 0;
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  opacity: 0.18;
-  pointer-events: none;
-  z-index: 0;
-  filter: blur(2px) saturate(1.2);
-}
-
-/* Ensure letter page sits above the bg */
-.letter-overlay > .letter-page {
-  position: relative;
-  z-index: 1;
-}
 
 /* White letter paper */
 .letter-page {
@@ -228,7 +210,30 @@
     0 32px 90px rgba(0, 0, 0, 0.65),
     0 4px 20px rgba(0, 0, 0, 0.25);
   animation: letterOpen 0.55s cubic-bezier(0.34, 1.2, 0.64, 1);
+  isolation: isolate;
 }
+
+/* Background image applied directly on the letter paper at low opacity */
+.letter-page::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--letter-bg);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  opacity: 0.13;
+  border-radius: inherit;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Keep all content above the bg image */
+.letter-page > * {
+  position: relative;
+  z-index: 1;
+}
+
 
 @keyframes letterOpen {
   from {

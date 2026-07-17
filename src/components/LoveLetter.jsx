@@ -59,12 +59,10 @@ const LoveLetter = ({ onBack, onClickMe }) => {
       ════════════════════════════════ */}
       {isOpen && (
         <div className="letter-overlay animate-fade-in">
-          {/* Full-cover background image */}
           <div
-            className="letter-overlay-bg"
-            style={{ backgroundImage: `url(${letterBg})` }}
-          />
-          <div className="letter-page">
+            className="letter-page"
+            style={{ '--letter-bg': `url(${letterBg})` }}
+          >
 
             {/* ── TOP SECTION: address + photo circle ── */}
             <div className="letter-top-row">
