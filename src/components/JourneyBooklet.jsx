@@ -70,62 +70,91 @@ const JourneyBooklet = ({ onBack }) => {
         <h1 className="booklet-main-title">The Story of J &amp; H 💚💙</h1>
       </div>
 
-      {/* Booklet card */}
-      <div className="booklet-book animate-fade-in" key={chapter.id}>
-
-        {/* Left page — decorative */}
-        <div className="booklet-page booklet-page-left">
-          <div className="booklet-page-texture" />
-          <div className="booklet-left-content">
-            <span className="booklet-chapter-icon">{chapter.icon}</span>
-            <p className="booklet-chapter-num">Chapter {chapter.id}</p>
-            <p className="booklet-chapter-date">{chapter.date}</p>
-            <div className="booklet-left-deco">
-              {['💕', '💞', '💕'].map((h, i) => (
-                <span key={i} className="booklet-deco-heart" style={{ animationDelay: `${i * 0.4}s` }}>{h}</span>
-              ))}
-            </div>
-            {/* Photo */}
-            <div className="booklet-photo-frame">
-              <img
-                src={activeChapter % 2 === 0 ? coupleAvatar : letterAvatar}
-                alt="Us"
-                className="booklet-photo-img"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Spine */}
-        <div className="booklet-spine" />
-
-        {/* Right page — text */}
-        <div className="booklet-page booklet-page-right">
-          <div className="booklet-page-texture" />
-          <div className="booklet-right-content">
-            <h2 className="booklet-chapter-title">{chapter.title}</h2>
-            <div className="booklet-divider">
-              <span>❧</span>
-            </div>
-            <p className="booklet-chapter-text">{chapter.text}</p>
-            <div className="booklet-signature">
-              — Harini 💚
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Navigation */}
-      <div className="booklet-nav animate-fade-in">
+      {/* Booklet Container with Floating Navigation Arrows */}
+      <div className="booklet-container">
+        
+        {/* Left Floating Arrow */}
         <button
-          className="booklet-nav-btn"
-          id="booklet-prev-btn"
+          className="booklet-nav-arrow arrow-left"
+          id="booklet-arrow-prev"
           onClick={goPrev}
           disabled={activeChapter === 0}
+          aria-label="Previous Page"
         >
-          ◀ Prev
+          <span>◀</span>
         </button>
 
+        {/* Booklet Card (key resets CSS animation on page change) */}
+        <div className="booklet-book" key={chapter.id}>
+
+          {/* Left page — Image Page */}
+          <div className="booklet-page booklet-page-left">
+            <div className="booklet-page-texture" />
+            <div className="booklet-corner-roses" />
+
+            {/* Overlapping 3D-like Hearts on Left Edge */}
+            <span className="paper-heart heart-left-1">❤️</span>
+            <span className="paper-heart heart-left-2">❤️</span>
+            <span className="paper-heart heart-left-3">💖</span>
+
+            <div className="booklet-left-content">
+              <span className="booklet-chapter-icon">{chapter.icon}</span>
+              <p className="booklet-chapter-num">Chapter {chapter.id}</p>
+              <p className="booklet-chapter-date">{chapter.date}</p>
+              
+              {/* Polaroid Photo Frame */}
+              <div className="booklet-photo-frame">
+                <img
+                  src={activeChapter % 2 === 0 ? coupleAvatar : letterAvatar}
+                  alt="Love Journey"
+                  className="booklet-photo-img"
+                />
+                <div className="booklet-photo-tape" />
+              </div>
+              <p className="booklet-photo-caption">We, together ✨</p>
+            </div>
+          </div>
+
+          {/* Spine */}
+          <div className="booklet-spine" />
+
+          {/* Right page — Content Page */}
+          <div className="booklet-page booklet-page-right">
+            <div className="booklet-page-texture" />
+            <div className="booklet-corner-blossoms" />
+
+            {/* Overlapping 3D-like Hearts on Right Edge */}
+            <span className="paper-heart heart-right-1">💖</span>
+            <span className="paper-heart heart-right-2">❤️</span>
+            <span className="paper-heart heart-right-3">💕</span>
+
+            <div className="booklet-right-content">
+              <h2 className="booklet-chapter-title">{chapter.title}</h2>
+              <div className="booklet-divider">
+                <span>❧</span>
+              </div>
+              <p className="booklet-chapter-text">{chapter.text}</p>
+              <div className="booklet-signature">
+                — Harini 💚
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Floating Arrow */}
+        <button
+          className="booklet-nav-arrow arrow-right"
+          id="booklet-arrow-next"
+          onClick={goNext}
+          disabled={activeChapter === CHAPTERS.length - 1}
+          aria-label="Next Page"
+        >
+          <span>▶</span>
+        </button>
+      </div>
+
+      {/* Pagination Dots (indicator) */}
+      <div className="booklet-dots-wrapper animate-fade-in">
         <div className="booklet-dots">
           {CHAPTERS.map((_, i) => (
             <button
@@ -136,15 +165,6 @@ const JourneyBooklet = ({ onBack }) => {
             />
           ))}
         </div>
-
-        <button
-          className="booklet-nav-btn"
-          id="booklet-next-btn"
-          onClick={goNext}
-          disabled={activeChapter === CHAPTERS.length - 1}
-        >
-          Next ▶
-        </button>
       </div>
 
     </section>
