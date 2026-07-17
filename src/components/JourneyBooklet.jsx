@@ -61,7 +61,7 @@ const JourneyBooklet = ({ onBack }) => {
 
       {/* Return button */}
       <button className="btn-back-vintage" id="booklet-back-btn" onClick={onBack}>
-        ✦ Return
+        Back to Wishes 💖
       </button>
 
       {/* Booklet header */}

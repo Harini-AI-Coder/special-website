@@ -3,7 +3,7 @@ import './AnniversaryPage.css';
 
 const HEARTS = ['❤️', '💚', '💙', '💕', '💖', '💗', '💝'];
 
-const AnniversaryPage = ({ onExploreMore }) => {
+const AnniversaryPage = ({ onExploreMore, onBack }) => {
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -34,6 +34,10 @@ const AnniversaryPage = ({ onExploreMore }) => {
 
   return (
     <section className="anv-section">
+      {/* Return button */}
+      <button className="btn-back-vintage" onClick={onBack}>
+        Back to Letter 💌
+      </button>
       {/* Floating hearts layer */}
       <div className="anv-hearts-layer" ref={containerRef} />
 
@@ -58,13 +62,23 @@ const AnniversaryPage = ({ onExploreMore }) => {
           <span>H</span>
         </div>
 
-        <button
-          className="anv-explore-btn"
-          id="explore-more-btn"
-          onClick={onExploreMore}
-        >
-          Explore Our Journey 💌
-        </button>
+        <div className="anv-actions">
+          <button
+            className="anv-explore-btn"
+            id="explore-more-btn"
+            onClick={onExploreMore}
+          >
+            Explore Our Journey 💌
+          </button>
+          
+          <button
+            className="anv-back-btn"
+            id="anniversary-back-btn"
+            onClick={onBack}
+          >
+            Back to Letter 💌
+          </button>
+        </div>
       </div>
     </section>
   );

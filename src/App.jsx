@@ -62,6 +62,7 @@ function App() {
         <main className="app-main animate-fade-in">
           <AnniversaryPage
             onExploreMore={() => navigate('journey')}
+            onBack={() => navigate('letter')}
           />
         </main>
       )}

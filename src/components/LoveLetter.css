@@ -11,31 +11,6 @@
   overflow: hidden;
 }
 
-/* Return button */
-.btn-back-vintage {
-  position: fixed;
-  top: 24px;
-  left: 24px;
-  padding: 10px 24px;
-  border: none;
-  background: rgb(245 53 53 / 44%);
-  color: #FFD700;
-  font-family: 'Poppins', sans-serif;
-  font-size: 0.88rem;
-  border-radius: 30px;
-  cursor: pointer;
-  backdrop-filter: blur(14px);
-  transition: all 0.3s ease;
-  z-index: 9999;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
-}
-
-.btn-back-vintage:hover {
-  background: #FFD700;
-  color: #1a0005;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 22px rgba(255, 215, 0, 0.45);
-}
 
 /* ═══════════════════════════════════════════
    ENVELOPE SCENE (closed state)
