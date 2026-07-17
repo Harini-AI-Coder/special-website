@@ -1,71 +1,148 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './LoveLetter.css';
 
 const LoveLetter = ({ onBack }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [avatarSrc, setAvatarSrc] = useState(null);
+  const avatarInputRef = useRef(null);
+
+  const handleAvatarClick = () => {
+    avatarInputRef.current.click();
+  };
+
+  const handleAvatarChange = (e) => {
+    const file = e.target.files[0];
+    if (file) setAvatarSrc(URL.createObjectURL(file));
+  };
 
   return (
     <section className="letter-section">
-      <button className="btn-back-vintage" onClick={onBack} title="Go back to the question">
-        ✦ Return
-      </button>
 
-      <div className={`envelope-container ${isOpen ? 'open' : ''}`}>
-        {/* The Envelope */}
-        <div className="envelope" onClick={() => !isOpen && setIsOpen(true)}>
-          <div className="envelope-back"></div>
-          
-          {/* The actual Letter inside */}
-          <div className="letter-paper">
-            <div className="letter-paper-content">
-              <div className="letter-header">
-                <h3>Dearest Jeev,</h3>
-                <span className="date-stamp">July 17, 2026</span>
+      {/* ── RETURN BUTTON ── */}
+      <button className="btn-back-vintage" onClick={onBack}>✦ Return</button>
+
+      {/* ════════════════════════════════
+          CLOSED STATE — Envelope
+      ════════════════════════════════ */}
+      {!isOpen && (
+        <div className="env-scene animate-fade-in">
+          <div className="env-wrap">
+            {/* Envelope card */}
+            <div className="env-card">
+              {/* Dark red top flap triangle */}
+              <div className="env-flap" />
+
+              {/* White body (bottom half) */}
+              <div className="env-white-body">
+                {/* Bottom-left triangle shadow */}
+                <div className="env-shadow-left" />
+                <div className="env-shadow-right" />
               </div>
-              <div className="letter-body">
-                <p>
-                  From the very depth of my heart, I want to wish you the happiest of birthdays.
-                  Every single moment shared with you feels like a beautiful dream, and today is the 
-                  most perfect day to remind you how much you truly mean to me.
-                </p>
-                <p>
-                  You are my safe harbor, my greatest joy, and my absolute favorite person. 
-                  I cherish your smile, your warmth, and the beautiful kindness you radiate. 
-                  I want to walk by your side through all the seasons of life, loving you 
-                  more and more with every heartbeat.
-                </p>
-                <p>
-                  May this year bring you all the magic, laughter, and infinite happiness 
-                  that you so deeply deserve. 
-                </p>
-              </div>
-              <div className="letter-footer">
-                <p>With all my love,</p>
-                <p className="signature">JH 💚💙</p>
-              </div>
+
+              {/* Wax seal button — centered on seam */}
+              <button className="wax-seal" onClick={() => setIsOpen(true)}>
+                <span className="seal-heart">❤</span>
+                <span className="seal-label">Open Me</span>
+              </button>
             </div>
-          </div>
 
-          <div className="envelope-front">
-            <div className="envelope-flap"></div>
-            {!isOpen && (
-              <div className="wax-seal" onClick={(e) => {
-                e.stopPropagation();
-                setIsOpen(true);
-              }}>
-                <div className="seal-heart">❤</div>
-                <div className="seal-text">Open Me</div>
-              </div>
-            )}
+            {/* "Dear Jeev," text below the envelope */}
+            <p className="env-hint-text">Dear Jeev,</p>
           </div>
         </div>
-      </div>
+      )}
 
+      {/* ════════════════════════════════
+          OPEN STATE — Full-page Letter
+      ════════════════════════════════ */}
       {isOpen && (
-        <div className="letter-controls animate-fade-in">
-          <button className="btn-close-letter" onClick={() => setIsOpen(false)}>
-            Close Letter
-          </button>
+        <div className="letter-overlay animate-fade-in">
+          <div className="letter-page">
+
+            {/* ── TOP SECTION: address + photo circle ── */}
+            <div className="letter-top-row">
+
+              {/* Left: sender address block */}
+              <div className="sender-block">
+                <p className="sender-name">Harini</p>
+                <p className="sender-addr">Heart Lane, Love Street</p>
+                <p className="sender-addr">Chennai, India</p>
+                <p className="sender-date">July 17, 2026</p>
+              </div>
+
+              {/* Right: big red photo circle (overflows top-right) */}
+              <div
+                className="letter-photo-circle"
+                onClick={handleAvatarClick}
+                title="Click to add your photo"
+              >
+                {avatarSrc ? (
+                  <img src={avatarSrc} alt="Photo" className="letter-photo-img" />
+                ) : (
+                  <div className="letter-photo-placeholder">
+                    <span className="photo-icon">❤</span>
+                    <span className="photo-hint">Add Photo</span>
+                  </div>
+                )}
+              </div>
+              <input
+                ref={avatarInputRef}
+                type="file"
+                accept="image/*"
+                style={{ display: 'none' }}
+                onChange={handleAvatarChange}
+                id="letter-photo-upload"
+              />
+            </div>
+
+            {/* Floating small hearts decoration */}
+            <span className="deco-heart" style={{ top: '130px', right: '200px', fontSize: '1.2rem' }}>❤</span>
+            <span className="deco-heart" style={{ top: '160px', right: '160px', fontSize: '0.8rem' }}>❤</span>
+            <span className="deco-heart" style={{ top: '200px', right: '230px', fontSize: '1rem' }}>❤</span>
+
+            {/* ── Recipient line ── */}
+            <div className="recipient-block">
+              <p className="recipient-name">Jeev,</p>
+              <p className="recipient-addr">Your Heart, My World</p>
+            </div>
+
+            {/* ── Greeting ── */}
+            <h2 className="letter-greeting">My dearest Jeev,</h2>
+
+            {/* ── Body ── */}
+            <div className="letter-body-text">
+              <p>
+                I wanted to take a moment to express the depth of my love for you. You have brought so much
+                joy and happiness into my life, and I am grateful daily for your presence.
+              </p>
+              <p>
+                From the moment I first met you, I knew there was something special about you. Your beautiful
+                smile, your infectious laughter, and your kind heart captured my attention and my heart. Since
+                then, my feelings for you have only grown stronger.
+              </p>
+              <p>
+                I love the way you look at me with your sparkling eyes and the way your laughter fills a room
+                with joy. I love the sound of your voice and how you make me feel when you wrap your arms
+                around me. I love the little things you do that show me how much you care.
+              </p>
+              <p>
+                My love for you is endless and unconditional. I will always be by your side through thick and
+                thin, and I promise to love you with every fiber of my being for eternity.
+              </p>
+            </div>
+
+            {/* ── Signature ── */}
+            <div className="letter-sign-block">
+              <p className="letter-sign-closing">Yours always and forever,</p>
+              <p className="letter-signature">Harini 💚💙</p>
+            </div>
+
+            {/* ── Close button ── */}
+            <button className="btn-close-letter" onClick={() => setIsOpen(false)}>
+              Close Letter
+            </button>
+
+          </div>
         </div>
       )}
     </section>

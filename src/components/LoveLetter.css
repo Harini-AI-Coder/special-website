@@ -1,321 +1,446 @@
+/* ═══════════════════════════════════════════
+   BASE
+═══════════════════════════════════════════ */
 .letter-section {
   min-height: 100vh;
+  width: 100%;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 80px 20px 40px;
   position: relative;
-  perspective: 1000px;
   overflow: hidden;
 }
 
+/* Return button */
 .btn-back-vintage {
-  position: absolute;
-  top: 30px;
-  left: 30px;
+  position: fixed;
+  top: 24px;
+  left: 24px;
   padding: 10px 24px;
-  border: 1px solid rgba(255, 215, 0, 0.4);
-  background: rgba(40, 0, 10, 0.6);
+  border: none;
+  background: rgba(20, 0, 6, 0.75);
   color: #FFD700;
   font-family: 'Poppins', sans-serif;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   border-radius: 30px;
   cursor: pointer;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(14px);
   transition: all 0.3s ease;
-  z-index: 10;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
 }
-
 .btn-back-vintage:hover {
   background: #FFD700;
   color: #1a0005;
-  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
   transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(255, 215, 0, 0.45);
 }
 
-/* Envelope Container */
-.envelope-container {
-  position: relative;
-  width: 450px;
-  height: 300px;
-  margin: 40px auto;
-  transition: transform 0.8s ease;
-}
-
-/* When envelope is open, center and push down slightly or scale */
-.envelope-container.open {
-  transform: translateY(120px) scale(0.9);
-}
-
-/* Interactive Envelope Box */
-.envelope {
-  position: relative;
+/* ═══════════════════════════════════════════
+   ENVELOPE SCENE (closed state)
+═══════════════════════════════════════════ */
+.env-scene {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  height: 100%;
-  background: #5c1d24; /* deep maroon leather envelope background */
-  border-radius: 0 0 16px 16px;
-  box-shadow: 
-    0 15px 35px rgba(0, 0, 0, 0.5),
-    0 5px 15px rgba(0, 0, 0, 0.3);
-  cursor: pointer;
+  height: 100vh;
 }
 
-.envelope-back {
-  position: absolute;
-  width: 0;
-  height: 0;
-  border-left: 225px solid transparent;
-  border-right: 225px solid transparent;
-  border-top: 150px solid transparent;
-  border-bottom: 150px solid #4a151b;
-  border-radius: 0 0 16px 16px;
-  bottom: 0;
-  z-index: 1;
+.env-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
 }
 
-.envelope-front {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 3;
-  pointer-events: none;
+/* ── Envelope card ── */
+.env-card {
+  position: relative;
+  width: min(580px, 88vw);
+  height: min(380px, 56vw);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.65),
+    0 8px 20px rgba(192, 21, 42, 0.35);
+  background: #C0152A;
 }
 
-/* Flap at the top */
-.envelope-flap {
+/* Dark red flap — top half pointing down (inverted V) */
+.env-flap {
   position: absolute;
   top: 0;
   left: 0;
+  width: 100%;
+  height: 100%;
+  /* CSS clip-path triangle pointing down — creates the flap */
+  clip-path: polygon(0 0, 100% 0, 50% 52%);
+  background: #8B0000;
+  z-index: 3;
+}
+
+/* White envelope interior — bottom half */
+.env-white-body {
+  position: absolute;
+  inset: 0;
+  background: #ffffff;
+  z-index: 1;
+  /* mask out just the top triangle so the red shows through */
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+/* Shadow triangle — bottom left */
+.env-shadow-left {
+  position: absolute;
+  bottom: 0;
+  left: 0;
   width: 0;
   height: 0;
-  border-left: 225px solid transparent;
-  border-right: 225px solid transparent;
-  border-top: 150px solid #5c1d24;
-  border-bottom: 0 solid transparent;
-  transform-origin: top;
-  transition: transform 0.6s ease, z-index 0.6s ease;
-  z-index: 4;
+  border-style: solid;
+  border-width: 0 0 min(190px, 28vw) min(290px, 44vw);
+  border-color: transparent transparent #e8e8e8 transparent;
+  z-index: 2;
 }
 
-.open .envelope-flap {
-  transform: rotateX(180deg);
-  z-index: 1;
+/* Shadow triangle — bottom right */
+.env-shadow-right {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 min(290px, 44vw) min(190px, 28vw) 0;
+  border-color: transparent #e8e8e8 transparent transparent;
+  z-index: 2;
 }
 
-/* Wax Seal */
+/* Wax seal button */
 .wax-seal {
   position: absolute;
-  top: 120px;
-  left: calc(50% - 35px);
-  width: 70px;
-  height: 70px;
-  background: radial-gradient(circle, #a11c1c 0%, #7d1111 80%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
-  box-shadow: 
-    0 4px 10px rgba(0,0,0,0.5), 
-    inset 0 2px 4px rgba(255,255,255,0.3);
+  border: none;
+  background: radial-gradient(circle at 38% 32%, #d44, #8B0000 72%);
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.55),
+    inset 0 2px 6px rgba(255, 255, 255, 0.28);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 2px;
   cursor: pointer;
-  z-index: 5;
-  pointer-events: auto;
-  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 10;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
 }
-
 .wax-seal:hover {
-  transform: scale(1.1) rotate(-5deg);
+  transform: translate(-50%, -50%) scale(1.12) rotate(-5deg);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.6), inset 0 2px 6px rgba(255, 255, 255, 0.32);
 }
 
 .seal-heart {
   color: #fff;
-  font-size: 1.6rem;
+  font-size: 1.75rem;
   line-height: 1;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
 }
 
-.seal-text {
-  font-size: 0.55rem;
-  color: rgba(255,255,255,0.8);
+.seal-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.5rem;
+  color: rgba(255, 255, 255, 0.88);
   text-transform: uppercase;
-  font-weight: 600;
-  letter-spacing: 0.5px;
+  font-weight: 700;
+  letter-spacing: 0.9px;
 }
 
-/* The Letter Paper */
-.letter-paper {
-  position: absolute;
-  left: 20px;
-  right: 20px;
-  bottom: 10px;
-  height: 270px;
-  background: #fdf5e6; /* Creamy parchment color */
-  border-radius: 4px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-  transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1), z-index 0.8s, height 0.8s;
-  z-index: 2;
-  overflow: hidden;
-  padding: 24px;
+/* "Dear Jeev," hint below envelope */
+.env-hint-text {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2rem;
+  color: rgba(255, 200, 210, 0.75);
+  text-align: center;
+  pointer-events: none;
 }
 
-/* Slide out, scale up and cover the view */
-.open .letter-paper {
-  transform: translateY(-400px) scale(1.15);
-  height: 480px;
-  z-index: 6;
-  box-shadow: 
-    0 20px 50px rgba(0, 0, 0, 0.6),
-    0 0 0 1px rgba(255, 215, 0, 0.1);
+/* ═══════════════════════════════════════════
+   LETTER OVERLAY (open state)
+═══════════════════════════════════════════ */
+.letter-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: flex-start; /* prevent top cut-off */
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px);
+  z-index: 2000;
+  padding: 60px 20px; /* margin scroll space */
   overflow-y: auto;
 }
 
-/* Vintage parchment texture details */
-.letter-paper-content {
-  color: #3b2314; /* deep dark brown ink */
-  font-family: 'Playfair Display', serif;
-  line-height: 1.6;
+/* White letter paper */
+.letter-page {
+  position: relative;
+  background: #ffffff;
+  width: min(640px, 95vw);
+  margin-top: 40px; /* space from top edge of screen */
+  margin-bottom: 40px;
+  min-height: 80vh;
+  border-radius: 3px;
+  padding: 60px 50px 40px; /* increased top padding to shift contents down */
+  overflow: hidden;
+  box-shadow:
+    0 32px 90px rgba(0, 0, 0, 0.65),
+    0 4px 20px rgba(0, 0, 0, 0.25);
+  animation: letterOpen 0.55s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+
+@keyframes letterOpen {
+  from { opacity: 0; transform: scale(0.78) translateY(50px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* ── Top row: sender address left + photo circle right ── */
+.letter-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+/* Sender address block */
+.sender-block {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sender-name {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #2b1212;
+}
+
+.sender-addr {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.78rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+.sender-date {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.78rem;
+  color: #888;
+  margin-top: 8px;
+  font-style: italic;
+}
+
+/* Large red photo circle — top-right, partially overflows */
+.letter-photo-circle {
+  position: absolute;
+  top: -44px;    /* overflow above the letter top edge */
+  right: -50px;  /* overflow to the right edge */
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  background: #C0152A;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(192, 21, 42, 0.45);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex-shrink: 0;
+  z-index: 5;
+}
+
+.letter-photo-circle:hover {
+  transform: scale(1.04);
+  box-shadow: 0 12px 38px rgba(192, 21, 42, 0.55);
+}
+
+.letter-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.letter-photo-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.photo-icon {
+  font-size: 2.4rem;
+  line-height: 1;
+}
+
+.photo-hint {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.58rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   opacity: 0.85;
 }
 
-.letter-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  border-bottom: 1px dashed rgba(59, 35, 20, 0.15);
-  padding-bottom: 12px;
-  margin-bottom: 20px;
+/* Floating small heart decorations */
+.deco-heart {
+  position: absolute;
+  color: #C0152A;
+  pointer-events: none;
+  opacity: 0.75;
+  animation: heartFloat 3s ease-in-out infinite alternate;
 }
 
-.letter-header h3 {
-  font-family: 'Great Vibes', cursive;
-  font-size: 2rem;
-  font-weight: normal;
+.deco-heart:nth-child(2) { animation-delay: 0.8s; }
+.deco-heart:nth-child(3) { animation-delay: 1.6s; }
+
+@keyframes heartFloat {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-6px); }
 }
 
-.date-stamp {
-  font-size: 0.8rem;
-  font-style: italic;
+/* ── Recipient block ── */
+.recipient-block {
+  margin-bottom: 18px;
+}
+
+.recipient-name {
   font-family: 'Poppins', sans-serif;
-  opacity: 0.7;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #2b1212;
 }
 
-.letter-body {
+.recipient-addr {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.78rem;
+  color: #666;
+  margin-top: 2px;
+}
+
+/* ── Greeting ── */
+.letter-greeting {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #2b1212;
+  margin-bottom: 16px;
+  font-style: italic;
+}
+
+/* ── Body text ── */
+.letter-body-text {
+  font-family: 'Playfair Display', serif;
   font-size: 0.95rem;
-  text-indent: 20px;
+  color: #2b2b2b;
+  line-height: 1.85;
   margin-bottom: 24px;
 }
 
-.letter-body p {
-  margin-bottom: 14px;
+.letter-body-text p {
+  margin-bottom: 16px;
   text-align: justify;
 }
 
-.letter-footer {
-  text-align: right;
-  border-top: 1px dashed rgba(59, 35, 20, 0.15);
-  padding-top: 12px;
+/* ── Signature ── */
+.letter-sign-block {
+  margin-bottom: 28px;
 }
 
-.letter-footer p {
-  font-size: 0.9rem;
+.letter-sign-closing {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem;
+  color: #2b1212;
   font-style: italic;
 }
 
-.signature {
+.letter-signature {
   font-family: 'Great Vibes', cursive;
-  font-size: 2.2rem;
-  margin-top: -5px;
+  font-size: 2.4rem;
   color: #8B0000;
-  text-shadow: 0 0 1px rgba(139, 0, 0, 0.1);
+  line-height: 1.2;
+  margin-top: -4px;
 }
 
-/* Controls */
-.letter-controls {
-  margin-top: 120px;
-  z-index: 7;
-}
-
+/* Close button */
 .btn-close-letter {
-  padding: 12px 30px;
+  display: block;
+  margin: 0 auto;
+  padding: 12px 40px;
   border: none;
   border-radius: 50px;
-  background: linear-gradient(135deg, #a11c1c, #7d1111);
+  background: linear-gradient(135deg, #C0152A, #8B0000);
   color: #fff;
   font-family: 'Poppins', sans-serif;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 0.95rem;
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-  transition: all 0.2s ease;
+  box-shadow: 0 6px 20px rgba(192, 21, 42, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  letter-spacing: 0.5px;
 }
 
 .btn-close-letter:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 10px 28px rgba(192, 21, 42, 0.55);
 }
 
-/* Scrollbar styling for letter */
-.letter-paper::-webkit-scrollbar {
-  width: 4px;
-}
-.letter-paper::-webkit-scrollbar-track {
-  background: rgba(59, 35, 20, 0.05);
-}
-.letter-paper::-webkit-scrollbar-thumb {
-  background: rgba(59, 35, 20, 0.2);
-  border-radius: 2px;
-}
+/* Scrollbar */
+.letter-overlay::-webkit-scrollbar { width: 4px; }
+.letter-overlay::-webkit-scrollbar-track { background: transparent; }
+.letter-overlay::-webkit-scrollbar-thumb { background: #C0152A; border-radius: 2px; }
 
-/* Animation utilities */
+/* Fade-in utility */
 .animate-fade-in {
-  animation: fadeIn 0.5s forwards;
+  animation: fadeIn 0.4s ease forwards;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Responsive constraints */
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
 @media (max-width: 520px) {
-  .envelope-container {
-    width: 320px;
-    height: 220px;
-  }
-  .envelope-back {
-    border-left-width: 160px;
-    border-right-width: 160px;
-    border-top-width: 110px;
-    border-bottom-width: 110px;
-  }
-  .envelope-flap {
-    border-left-width: 160px;
-    border-right-width: 160px;
-    border-top-width: 110px;
+  .env-card {
+    width: 92vw;
+    height: 60vw;
   }
   .wax-seal {
-    top: 75px;
-    left: calc(50% - 30px);
-    width: 60px;
-    height: 60px;
+    width: 66px;
+    height: 66px;
   }
-  .seal-heart {
-    font-size: 1.3rem;
+  .seal-heart { font-size: 1.4rem; }
+  .env-hint-text { font-size: 1.6rem; }
+
+  .letter-page {
+    padding: 36px 22px 30px;
   }
-  .open .letter-paper {
-    transform: translateY(-280px) scale(1.05);
-    height: 380px;
-    width: 300px;
-    left: 10px;
-    right: 10px;
+  .letter-photo-circle {
+    width: 120px;
+    height: 120px;
+    top: -36px;
+    right: -22px;
   }
-  .letter-header h3 {
-    font-size: 1.6rem;
-  }
-  .signature {
-    font-size: 1.8rem;
-  }
+  .letter-body-text { font-size: 0.88rem; }
+  .letter-greeting { font-size: 1rem; }
 }
