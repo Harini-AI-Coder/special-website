@@ -1,8 +1,9 @@
 import React, { useState, useRef } from 'react';
 import './LoveLetter.css';
 import letterAvatar from '../assets/letter_avatar.png';
+import letterBg from '../assets/letter_bg.jpg';
 
-const LoveLetter = ({ onBack }) => {
+const LoveLetter = ({ onBack, onClickMe }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [avatarSrc, setAvatarSrc] = useState(letterAvatar);
   const avatarInputRef = useRef(null);
@@ -58,6 +59,11 @@ const LoveLetter = ({ onBack }) => {
       ════════════════════════════════ */}
       {isOpen && (
         <div className="letter-overlay animate-fade-in">
+          {/* Full-cover background image */}
+          <div
+            className="letter-overlay-bg"
+            style={{ backgroundImage: `url(${letterBg})` }}
+          />
           <div className="letter-page">
 
             {/* ── TOP SECTION: address + photo circle ── */}
@@ -138,9 +144,16 @@ const LoveLetter = ({ onBack }) => {
               <p className="letter-signature">Harini 💚💙</p>
             </div>
 
-            {/* ── Close button ── */}
-            <button className="btn-close-letter" onClick={() => setIsOpen(false)}>
-              Close Letter
+            {/* ── Click Me button — navigates to Anniversary page ── */}
+            <button
+              className="btn-close-letter btn-click-me"
+              id="click-me-btn"
+              onClick={() => {
+                setIsOpen(false);
+                if (onClickMe) onClickMe();
+              }}
+            >
+              Click Me 💌
             </button>
 
           </div>
