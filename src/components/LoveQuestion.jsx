@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './LoveQuestion.css';
+import coupleAvatar from '../assets/couple.jpg';
 
 const LoveQuestion = ({ onSeeMiracle }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [noPos, setNoPos] = useState({ x: 0, y: 0 });
   const [noCount, setNoCount] = useState(0);
-  const [popupAvatarSrc, setPopupAvatarSrc] = useState(null);
+  const [popupAvatarSrc, setPopupAvatarSrc] = useState(coupleAvatar);
   const containerRef = useRef(null);
   const noButtonRef = useRef(null);
   const popupFileInputRef = useRef(null);

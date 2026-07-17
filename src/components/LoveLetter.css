@@ -18,7 +18,7 @@
   left: 24px;
   padding: 10px 24px;
   border: none;
-  background: rgba(20, 0, 6, 0.75);
+  background: rgb(245 53 53 / 44%);
   color: #FFD700;
   font-family: 'Poppins', sans-serif;
   font-size: 0.88rem;
@@ -29,6 +29,7 @@
   z-index: 9999;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
 }
+
 .btn-back-vintage:hover {
   background: #FFD700;
   color: #1a0005;
@@ -99,7 +100,6 @@
   height: 0;
   border-style: solid;
   border-width: 0 0 min(190px, 28vw) min(290px, 44vw);
-  border-color: transparent transparent #e8e8e8 transparent;
   z-index: 2;
 }
 
@@ -112,7 +112,6 @@
   height: 0;
   border-style: solid;
   border-width: 0 min(290px, 44vw) min(190px, 28vw) 0;
-  border-color: transparent #e8e8e8 transparent transparent;
   z-index: 2;
 }
 
@@ -139,6 +138,7 @@
   z-index: 10;
   transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
 }
+
 .wax-seal:hover {
   transform: translate(-50%, -50%) scale(1.12) rotate(-5deg);
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.6), inset 0 2px 6px rgba(255, 255, 255, 0.32);
@@ -176,12 +176,14 @@
   position: fixed;
   inset: 0;
   display: flex;
-  align-items: flex-start; /* prevent top cut-off */
+  align-items: flex-start;
+  /* prevent top cut-off */
   justify-content: center;
   background: rgba(0, 0, 0, 0.55);
   backdrop-filter: blur(6px);
   z-index: 2000;
-  padding: 60px 20px; /* margin scroll space */
+  padding: 60px 20px;
+  /* margin scroll space */
   overflow-y: auto;
 }
 
@@ -190,11 +192,13 @@
   position: relative;
   background: #ffffff;
   width: min(640px, 95vw);
-  margin-top: 40px; /* space from top edge of screen */
+  margin-top: 40px;
+  /* space from top edge of screen */
   margin-bottom: 40px;
   min-height: 80vh;
   border-radius: 3px;
-  padding: 60px 50px 40px; /* increased top padding to shift contents down */
+  padding: 60px 50px 40px;
+  /* increased top padding to shift contents down */
   overflow: hidden;
   box-shadow:
     0 32px 90px rgba(0, 0, 0, 0.65),
@@ -203,8 +207,15 @@
 }
 
 @keyframes letterOpen {
-  from { opacity: 0; transform: scale(0.78) translateY(50px); }
-  to   { opacity: 1; transform: scale(1) translateY(0); }
+  from {
+    opacity: 0;
+    transform: scale(0.78) translateY(50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 /* ── Top row: sender address left + photo circle right ── */
@@ -248,8 +259,10 @@
 /* Large red photo circle — top-right, partially overflows */
 .letter-photo-circle {
   position: absolute;
-  top: -44px;    /* overflow above the letter top edge */
-  right: -50px;  /* overflow to the right edge */
+  top: -44px;
+  /* overflow above the letter top edge */
+  right: -50px;
+  /* overflow to the right edge */
   width: 170px;
   height: 170px;
   border-radius: 50%;
@@ -308,12 +321,22 @@
   animation: heartFloat 3s ease-in-out infinite alternate;
 }
 
-.deco-heart:nth-child(2) { animation-delay: 0.8s; }
-.deco-heart:nth-child(3) { animation-delay: 1.6s; }
+.deco-heart:nth-child(2) {
+  animation-delay: 0.8s;
+}
+
+.deco-heart:nth-child(3) {
+  animation-delay: 1.6s;
+}
 
 @keyframes heartFloat {
-  from { transform: translateY(0); }
-  to   { transform: translateY(-6px); }
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-6px);
+  }
 }
 
 /* ── Recipient block ── */
@@ -403,9 +426,18 @@
 }
 
 /* Scrollbar */
-.letter-overlay::-webkit-scrollbar { width: 4px; }
-.letter-overlay::-webkit-scrollbar-track { background: transparent; }
-.letter-overlay::-webkit-scrollbar-thumb { background: #C0152A; border-radius: 2px; }
+.letter-overlay::-webkit-scrollbar {
+  width: 4px;
+}
+
+.letter-overlay::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.letter-overlay::-webkit-scrollbar-thumb {
+  background: #C0152A;
+  border-radius: 2px;
+}
 
 /* Fade-in utility */
 .animate-fade-in {
@@ -413,8 +445,15 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ═══════════════════════════════════════════
@@ -425,22 +464,36 @@
     width: 92vw;
     height: 60vw;
   }
+
   .wax-seal {
     width: 66px;
     height: 66px;
   }
-  .seal-heart { font-size: 1.4rem; }
-  .env-hint-text { font-size: 1.6rem; }
+
+  .seal-heart {
+    font-size: 1.4rem;
+  }
+
+  .env-hint-text {
+    font-size: 1.6rem;
+  }
 
   .letter-page {
     padding: 36px 22px 30px;
   }
+
   .letter-photo-circle {
     width: 120px;
     height: 120px;
     top: -36px;
     right: -22px;
   }
-  .letter-body-text { font-size: 0.88rem; }
-  .letter-greeting { font-size: 1rem; }
+
+  .letter-body-text {
+    font-size: 0.88rem;
+  }
+
+  .letter-greeting {
+    font-size: 1rem;
+  }
 }

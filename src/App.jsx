@@ -32,9 +32,11 @@ function App() {
         </main>
       )}
 
-      <footer className="app-footer">
-        <p>Made with ❤️ just for you &nbsp;·&nbsp; 2026</p>
-      </footer>
+      {currentPage !== 'main' && (
+        <footer className="app-footer">
+          <p>Made with ❤️ just for you &nbsp;·&nbsp; 2026</p>
+        </footer>
+      )}
     </div>
   );
 }
